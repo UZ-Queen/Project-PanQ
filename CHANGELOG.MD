@@ -7,8 +7,8 @@
 ![시구레우이](img/003a-Pause-GameOver-cmp.gif)   
 Escape로 일시 정지, 사망 시 R로 씬 리로드
 - MapGenerator.cs    
-![스크립트 베이스 타일맵 생성](img/003a-MapGenerator.gif)  
-타일 개수, 장애물 퍼센테이지, 타일 사이즈 설정 가능
+![스크립트 베이스 타일맵 생성](img/003a-MapGenerator.gif)<br>
+타일 개수, 장애물 퍼센테이지, 타일 사이즈 설정 가능<br>
 ![캠핑 금지!](img/003a-Map-Camping.gif)  
 기본적으로 적은 랜덤 타일을 가져와서 생성하나, 플레이어가 일정 시간동안 움직인 거리가 작다면, 플레이어의 위치에서 적 생성(캠핑 방지).
 
