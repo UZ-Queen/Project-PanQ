@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 
+[RequireComponent(typeof(AudioSource))]
 public class Gun : MonoBehaviour
 {
     [SerializeField]    int damage = 10;
@@ -35,16 +36,19 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private LayerMask attackFilter;
 
-    [SerializeField]
+    [SerializeField]    Transform muzzle;
+    [SerializeField]    Projectile projectilePrefab;
     
-    Transform muzzle;
-    [SerializeField]
-    Projectile projectilePrefab;
-
+    [SerializeField]    AudioClip shotSound;
+    AudioSource audioSauce;
     float randomizeVelocityCoef = 0.3f; // 발사체 속도가 이 수치만큼 무작위로 바뀜. ex) 0.3이면 속도가 0.7~1.3배 곱해짐. 몰루의 안정치 비슷한 느낌?
     System.Random prng = new System.Random();
     float nextFireTime = 0;
 
+    void Start(){
+        audioSauce = GetComponent<AudioSource>();
+        //audioSauce.clip ??= shotSound;
+    }
 
     public void Fire(){
         //Quaternion.FromToRotation()
@@ -52,7 +56,8 @@ public class Gun : MonoBehaviour
             return;
 
         nextFireTime = Time.time + msBetweenShot / 1000;
-        
+        if(shotSound != null)
+            audioSauce.PlayOneShot(shotSound);
         for(int i=0;i<pellets;i++){      
             Quaternion randomRotation = muzzle.rotation;
             randomRotation *= Quaternion.Euler(Random.Range(-spreadAngles/2,spreadAngles/2), Random.Range(-spreadAngles/2,spreadAngles/2), 0);

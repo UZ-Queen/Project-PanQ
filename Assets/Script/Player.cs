@@ -15,6 +15,10 @@ public class Player : LivingEntity
     protected override void Start()
     {
         base.Start();
+
+        // Player dupes = FindObjectOfType<Player>();
+        // dupes?.
+
         GameObject.DontDestroyOnLoad(gameObject);
         playerController = GetComponent<PlayerController>();
         gunController = GetComponent<GunController>();

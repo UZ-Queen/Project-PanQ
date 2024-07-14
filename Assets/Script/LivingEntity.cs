@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class LivingEntity : MonoBehaviour, IDamageable
 {
     public event Action OnDeath;
@@ -19,6 +20,11 @@ public class LivingEntity : MonoBehaviour, IDamageable
             return isDead;
         }}
 
+
+    AudioSource audioSauce;
+    [SerializeField]
+    public AudioClip onHitSound;
+
     public void TakeHit(int damage, RaycastHit hit = new RaycastHit())
     {
         TakeDamage(damage);
@@ -26,9 +32,14 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+
+
+
         if(isDead) 
             return;
-        
+        if(onHitSound != null)
+            //audioSauce.PlayOneShot(onHitSound);
+            AudioSource.PlayClipAtPoint(onHitSound, transform.position); //이런건 어떨까?
         if(damage > 0 )
             ShowDamageText(damage);
 
@@ -45,7 +56,9 @@ public class LivingEntity : MonoBehaviour, IDamageable
             return;
         health+=amount;
     }
-    private void Die(){
+
+    [ContextMenu("끄앙!")]
+    protected void Die(){
         isDead = true;
         health = 0;
 
@@ -53,7 +66,10 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if(OnDeath != null){
             OnDeath();
         }
-        GameObject.Destroy(gameObject);
+        //Destroy(gameObject, 0.5f);
+        Destroy(gameObject);
+        //Destroy(gameObject, 5f);
+        //gameObject.SetActive(false); // 이 방법은 소리 재생 못함
     }
 
     void ShowDamageText(int damage){
@@ -68,6 +84,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
+        audioSauce = GetComponent<AudioSource>();
         health = initialHealth;
         MaxHealth = initialHealth;
     }
