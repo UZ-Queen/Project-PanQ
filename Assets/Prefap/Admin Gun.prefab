@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 7445870004944325682}
   - component: {fileID: 3333175719990399808}
   m_Layer: 0
-  m_Name: "\uC11C\uAE30\uC758 \uACB0\uB2E8(Primal)"
+  m_Name: Admin Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,13 +529,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 9
-  stablity: 0.488
-  msBetweenShot: 878
-  pellets: 11
-  spreadAngles: 78.9
+  damage: 926
+  stablity: 0.745
+  msBetweenShot: 405
+  pellets: 530
+  spreadAngles: 85.2
   projVelocity: 16.5
-  lifeTime: 20.19
+  lifeTime: 8.6
   isHoming: 1
   persuitAccuracy: 700.5
   targetTag: Enemy

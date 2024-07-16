@@ -16267,7 +16267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6430359359076102139, guid: 006c6ac3a95812544968babe955bb3ba, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6828196888169660905, guid: 006c6ac3a95812544968babe955bb3ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17100,7 +17100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageText: {fileID: 4269070955774390061, guid: 484bcfec267853f4cb9685f39ee3d2e6, type: 3}
   health: 0
-  initialHealth: 20
+  initialHealth: 329
   onHitSound: {fileID: 0}
   moveSpeed: 10
 --- !u!114 &1798457422
