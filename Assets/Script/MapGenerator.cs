@@ -28,6 +28,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Transform navMeshPlane;
     [SerializeField] Transform worldBorder;
 
+    [SerializeField] DeadZone deadZonePre;
+
     //[SerializeField] BoxCollider floor;
     Transform[,] tileMap;
     List<Coord> allTileCoords;
@@ -56,6 +58,9 @@ public class MapGenerator : MonoBehaviour
 
         // 바닥 피하라고~
         GetComponent<BoxCollider>().size = new Vector3(currentMap.mapSize.x, -0.1f, currentMap.mapSize.y);
+
+        // 데스존(마크의 공허 느낌) 구현. 월드 밖으로 떨어질 경우 사망
+        
 
         //Destroy and Update a new map
         string mapHolderName = "이부키";
