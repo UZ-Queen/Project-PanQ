@@ -38,7 +38,7 @@ public class EnemyRanged : Enemy
         transform.LookAt(target); // 코루틴 등으로 스무스하게 이동했으면 좋겠는데..
         if(nextAttackTime <= Time.time){
             
-            gunController.Fire();
+            gunController.OnTriggerHold();
             nextAttackTime = Time.time + secondsBetweenAttack;
         }
 

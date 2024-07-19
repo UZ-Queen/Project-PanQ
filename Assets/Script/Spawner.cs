@@ -14,7 +14,20 @@ public class Spawner : MonoBehaviour
     public Wave[] waves;
     [Serializable]
     public class Wave{
+        public bool isEndless;
         public int enemyCount;
+        public int enemyRangedCount;
+
+        public float moveSpeed;
+        public float damage;
+        public float damageRanged;
+        public Gun gun;
+
+        public float attackRange;
+        public float attackRangeRanged;
+
+        public Color skinColor;
+        
         public float msBetweenSpawn;
     }
 

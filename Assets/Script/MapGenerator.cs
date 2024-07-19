@@ -58,7 +58,7 @@ public class MapGenerator : MonoBehaviour
         navMeshPlane.localScale = new Vector3(maxMapSize.x, 0, maxMapSize.y) * tileSize;
 
         // 바닥 피하라고~
-        GetComponent<BoxCollider>().size = new Vector3(currentMap.mapSize.x, -0.1f, currentMap.mapSize.y);
+        GetComponent<BoxCollider>().size = new Vector3(currentMap.mapSize.x, 0.1f, currentMap.mapSize.y);
 
         
         

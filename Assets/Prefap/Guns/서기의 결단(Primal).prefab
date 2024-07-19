@@ -859,12 +859,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 9
+  fireMode: 2
+  damage: 12
   stablity: 0.858
-  msBetweenShot: 64
-  pellets: 1
+  msBetweenShot: 70
+  pellets: 9
   spreadAngles: 14.6
-  projVelocity: 50.8
+  burstCount: 3
+  msBetweenBurstShot: 39
+  projVelocity: 25.1
   lifeTime: 20.19
   isHoming: 0
   persuitAccuracy: 700.5
@@ -877,6 +880,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3646972139615963898, guid: e062bed534e030d47a859ee68881fe94, type: 3}
   shellPrefap: {fileID: 5915361943725762491, guid: 55850974795fe7a41a8bfbfa2694b546, type: 3}
   shotSound: {fileID: 8300000, guid: fb08f33348ab6974684cea9632f2e7a7, type: 3}
+  hasReleasedTriggerAfterShot: 1
 --- !u!114 &105460859432644205
 MonoBehaviour:
   m_ObjectHideFlags: 0

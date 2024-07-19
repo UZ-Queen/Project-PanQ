@@ -24,14 +24,14 @@ public class GunController : MonoBehaviour
     currentGun = Instantiate(gun, leftHand.position, Quaternion.identity, leftHand );
     }
 
-    public void Fire(){
+    public void OnTriggerHold(){
         if(currentGun != null){
-            currentGun.Fire();
+            currentGun.OnTriggerHold();
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void OnTriggerRelease(){
+        if(currentGun != null){
+            currentGun.OnTriggerRelease();
+        }
     }
 }
