@@ -27,6 +27,7 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] Vector2Int maxMapSize = new Vector2Int(10, 10);
     [SerializeField] Transform navMeshPlane;
+    [SerializeField] Transform floor;
     [SerializeField] Transform worldBorder;
 
     [SerializeField] DeadZone deadZonePrefap;
@@ -58,7 +59,8 @@ public class MapGenerator : MonoBehaviour
         navMeshPlane.localScale = new Vector3(maxMapSize.x, 0, maxMapSize.y) * tileSize;
 
         // 바닥 피하라고~
-        GetComponent<BoxCollider>().size = new Vector3(currentMap.mapSize.x, 0.1f, currentMap.mapSize.y);
+        floor.localScale = new Vector3(currentMap.mapSize.x, 0.1f, currentMap.mapSize.y) * tileSize;
+        floor.position = Vector3.down * 0.01f;
 
         
         
