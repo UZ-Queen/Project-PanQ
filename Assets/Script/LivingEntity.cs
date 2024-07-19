@@ -10,6 +10,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public event Action OnDeath;
     public TextMeshPro damageText;
 
+    [SerializeField] protected ParticleSystem deathEffect;
     [SerializeField]
     protected int health;
     public int initialHealth = 10;
@@ -25,16 +26,20 @@ public class LivingEntity : MonoBehaviour, IDamageable
     [SerializeField]
     public AudioClip onHitSound;
 
-    public void TakeHit(int damage, RaycastHit hit = new RaycastHit())
+    public virtual void TakeHit(int damage, Vector3 hitPoint, Vector3 hitDirection)
     {
+        if(isDead) 
+            return;
+        if( deathEffect && health <= damage){
+            ParticleSystem newDeathEffect = Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection));
+            Destroy(newDeathEffect.gameObject, newDeathEffect.main.startLifetime.constant);
+            // Destroy(newDeathEffect, newDeathEffect.startLifetime);
+        }
         TakeDamage(damage);
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
-
-
-
         if(isDead) 
             return;
         if(onHitSound != null)
@@ -50,7 +55,9 @@ public class LivingEntity : MonoBehaviour, IDamageable
     }
 
 
-
+    // protected virtual ParticleSystem CreateDeathEffect(){
+    //     ParticleSystem newDeathEffect = Instantiate(deathEffect, hit.point, Quaternion.FromToRotation(Vector3.forward, -hit.normal));
+    // }
     public void Heal(int amount){
         if(isDead)
             return;

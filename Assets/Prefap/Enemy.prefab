@@ -145,8 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageText: {fileID: 4269070955774390061, guid: 484bcfec267853f4cb9685f39ee3d2e6, type: 3}
+  deathEffect: {fileID: 2428425024827592453, guid: 6fad7fc277f9e5447a9503734667a389, type: 3}
   health: 0
-  initialHealth: 12
+  initialHealth: 25
   onHitSound: {fileID: 8300000, guid: 7bbc98d8f6bb3744795d576826cba44c, type: 3}
   attackDamage: 2
   attackRange: 1

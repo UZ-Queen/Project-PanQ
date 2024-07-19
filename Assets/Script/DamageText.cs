@@ -28,7 +28,7 @@ public class DamageText : MonoBehaviour
         // transform.LookAt(Camera.main.transform);
         // transform.Rotate(new Vector3(0,180,0));          // 카메라를 보면 뒤집어지는데..
 
-        if(transform.localScale.x < 0.15f)
+        if(transform.localScale.x < localScaleThresholdToBeDestroyed)
             GameObject.Destroy(gameObject);
 
     }

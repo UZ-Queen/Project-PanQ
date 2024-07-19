@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 7445870004944325682}
   - component: {fileID: 3333175719990399808}
   m_Layer: 0
-  m_Name: "\uC11C\uAE30\uC758 \uACB0\uB2E8(Primal)"
+  m_Name: "\uD0C4\uC0B0\uCD1D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,10 +529,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 9
+  damage: 52
   stablity: 0.488
-  msBetweenShot: 878
-  pellets: 11
+  msBetweenShot: 604
+  pellets: 98
   spreadAngles: 78.9
   projVelocity: 16.5
   lifeTime: 20.19

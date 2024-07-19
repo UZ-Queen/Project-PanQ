@@ -69,7 +69,7 @@ public class Projectile : MonoBehaviour
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, 0.1f, layerMask, QueryTriggerInteraction.Collide);
         if(colliders.Length >= 1){
-            OnHitObject(colliders[0]);
+            OnHitObject(colliders[0], transform.position);
             //Destroy(gameObject);
         }
     }
@@ -145,7 +145,48 @@ public class Projectile : MonoBehaviour
         IDamageable damageableObject = hit.collider.GetComponent<IDamageable>();
         if (damageableObject != null)
         {
-            damageableObject.TakeHit(Damage, hit);
+            damageableObject.TakeHit(Damage, hit.point, transform.forward);
+        }
+
+        Vector3 originalSize = transform.localScale;
+        transform.SetParent(hit.transform);
+        transform.localScale = Vector3.Scale(transform.localScale, Utilities.GetReciprocalVector(hit.transform.localScale));
+       
+        velocity = 0;
+    }
+
+    //hitPoint가 필요한가? 흠
+    void OnHitObject(Collider other, Vector3 hitPoint){
+
+        IsHoming = false;
+        IDamageable damageableObject = other.GetComponent<IDamageable>();
+        if (damageableObject != null)
+        {
+            // damageableObject.TakeDamage(Damage);
+             damageableObject.TakeHit(Damage, other.transform.position, transform.forward);
+        }
+
+        Vector3 originalSize = transform.localScale;
+        transform.SetParent(other.transform);
+        transform.localScale = Vector3.Scale(transform.localScale, Utilities.GetReciprocalVector(other.transform.localScale));
+       
+        velocity = 0;
+    }
+}
+
+
+
+/*
+
+
+    void OnHitObject(RaycastHit hit)
+    {
+        //Debug.Log($"{this.name} 발사체가 {hit.collider.gameObject.name} 와 충돌!");
+        IsHoming = false;
+        IDamageable damageableObject = hit.collider.GetComponent<IDamageable>();
+        if (damageableObject != null)
+        {
+            damageableObject.TakeHit(Damage, hit.point, hit.normal);
         }
 
         Vector3 originalSize = transform.localScale;
@@ -160,19 +201,7 @@ public class Projectile : MonoBehaviour
         //GameObject.Destroy(this);
     }
 
-    void OnHitObject(Collider other){
 
-        IsHoming = false;
-        IDamageable damageableObject = other.GetComponent<IDamageable>();
-        if (damageableObject != null)
-        {
-            damageableObject.TakeDamage(Damage);
-        }
 
-        Vector3 originalSize = transform.localScale;
-        transform.SetParent(other.transform);
-        transform.localScale = Vector3.Scale(transform.localScale, Utilities.GetReciprocalVector(other.transform.localScale));
-       
-        velocity = 0;
-    }
-}
+
+*/

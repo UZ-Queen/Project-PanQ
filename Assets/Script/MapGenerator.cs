@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 //using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 
@@ -28,7 +29,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] Transform navMeshPlane;
     [SerializeField] Transform worldBorder;
 
-    [SerializeField] DeadZone deadZonePre;
+    [SerializeField] DeadZone deadZonePrefap;
 
     //[SerializeField] BoxCollider floor;
     Transform[,] tileMap;
@@ -59,7 +60,7 @@ public class MapGenerator : MonoBehaviour
         // 바닥 피하라고~
         GetComponent<BoxCollider>().size = new Vector3(currentMap.mapSize.x, -0.1f, currentMap.mapSize.y);
 
-        // 데스존(마크의 공허 느낌) 구현. 월드 밖으로 떨어질 경우 사망
+        
         
 
         //Destroy and Update a new map
@@ -72,7 +73,11 @@ public class MapGenerator : MonoBehaviour
         mapHolder = new GameObject(mapHolderName).transform;
         mapHolder.SetParent(transform);
 
-
+        // 데드존(마크의 공허 느낌) 구현. 월드 밖으로 떨어질 경우 사망
+        if(deadZonePrefap != null){            
+            Transform deadZone = Instantiate(deadZonePrefap, Vector3.down * 5f, Quaternion.identity, mapHolder).transform;
+            deadZone.GetComponent<BoxCollider>().size = new Vector3(1000,0,1000);
+        }
 
         //Generate Tile Coords
         allTileCoords = new List<Coord>();
@@ -151,19 +156,19 @@ public class MapGenerator : MonoBehaviour
         Vector3 worldBorderPosition = new Vector3(0, 0, (Mathf.Ceil(currentMap.mapSize.y * 0.5f) + 0.5f) * tileSize);
         Transform worldBorderN = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
 
-        worldBorderN.localScale = new Vector3(currentMap.mapSize.x * 2, 1, 1) * tileSize;
+        worldBorderN.localScale = new Vector3(currentMap.mapSize.x * 2, 10, 1) * tileSize;
 
         worldBorderPosition = new Vector3(0, 0, (Mathf.Ceil(-currentMap.mapSize.y * 0.5f - 1) + 0.5f) * tileSize);
         Transform worldBorderS = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
-        worldBorderS.localScale = new Vector3(currentMap.mapSize.x * 2, 1, 1) * tileSize;
+        worldBorderS.localScale = new Vector3(currentMap.mapSize.x * 2, 10, 1) * tileSize;
 
         worldBorderPosition = new Vector3((Mathf.Ceil(currentMap.mapSize.x * 0.5f) + 0.5f) * tileSize, 0, 0);
         Transform worldBorderE = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
-        worldBorderE.localScale = new Vector3(1, 1, currentMap.mapSize.y * 2) * tileSize;
+        worldBorderE.localScale = new Vector3(1, 10, currentMap.mapSize.y * 2) * tileSize;
 
         worldBorderPosition = new Vector3((Mathf.Ceil(-currentMap.mapSize.x * 0.5f) + 0.5f - 1) * tileSize, 0, 0);
         Transform worldBorderW = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
-        worldBorderW.localScale = new Vector3(1, 1, currentMap.mapSize.y * 2) * tileSize;
+        worldBorderW.localScale = new Vector3(1, 10, currentMap.mapSize.y * 2) * tileSize;
 
 
 
