@@ -1,26 +1,28 @@
-using System;
+// using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using UnityEngine.Tilemaps;
 
 public class Spawner : MonoBehaviour
 {
 
-    [SerializeField]
-    Enemy enemyPrefap;
+    [SerializeField]Enemy enemyPrefap;
+    [SerializeField]EnemyRanged enemyRangedPrefap;
+
     public Wave[] waves;
-    [Serializable]
+    [System.Serializable]
     public class Wave{
         public bool isEndless;
         public int enemyCount;
-        public int enemyRangedCount;
+        [Range(0,1)]public float chanceToSpawnRanged;
 
         public float moveSpeed;
-        public float damage;
-        public float damageRanged;
+        public int damage;
+        public int damageRanged;
         public Gun gun;
 
         public float attackRange;
@@ -36,6 +38,7 @@ public class Spawner : MonoBehaviour
     int currentWaveIndex = -1;
     Wave currentWave;
     int enemiesRemainingToSpawn = -1;
+    int enemiesRangedRemainingToSpawn = -1;
     int enemiesRemainingToNextWave = 1; // 다음 웨이브까지 죽여야 할 적들.
     float nextSpawnTime = -1;
 
@@ -51,11 +54,16 @@ public class Spawner : MonoBehaviour
     
     [SerializeField]    bool isDisabled = false; // 플레이어가 죽으면 생성 중단.
 
-    public event Action<int> OnNewWave = delegate{};
+    public event System.Action<int> OnNewWave = delegate{};
+
+    void Awake(){
+        player = FindObjectOfType<Player>();
+        mapGenerator = FindObjectOfType<MapGenerator>();
+    }
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        
         if(player == null){
             isDisabled = true;
             return;
@@ -65,7 +73,7 @@ public class Spawner : MonoBehaviour
         playerOldPosition = player.transform.position;
         nextCampCheckingTime = Time.time + campCheckingPeriod;
 
-        mapGenerator = FindObjectOfType<MapGenerator>();
+        
         NextWave();
     }
 
@@ -74,7 +82,7 @@ public class Spawner : MonoBehaviour
     {
         if(isDisabled)
             return;
-        if(enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime){
+        if((enemiesRemainingToSpawn > 0 || currentWave.isEndless) && Time.time > nextSpawnTime){
             StartCoroutine(SpawnEnemy());
             enemiesRemainingToSpawn--;
             nextSpawnTime = Time.time + currentWave.msBetweenSpawn / 1000;
@@ -82,9 +90,7 @@ public class Spawner : MonoBehaviour
 
         //Check Camping
         if(nextCampCheckingTime<Time.time){
-          //  Debug.Log("캠핑 체크중");
             if(Vector3.SqrMagnitude(playerOldPosition - player.transform.position) < Mathf.Pow(campRange, 2)){
-              //  Debug.Log($"캠핑 중! {Vector3.SqrMagnitude(playerOldPosition - player.transform.position)} < {Mathf.Pow(campRange, 2)}");
                 isCamping = true;
             }
             else{
@@ -120,15 +126,29 @@ public class Spawner : MonoBehaviour
         }
         tileMat.color = originalColor;
 
+        Enemy randomEnemy;
+        bool isRanged = false;
+        if(Random.Range(0f, 1f) > currentWave.chanceToSpawnRanged){
+            randomEnemy = enemyPrefap;
+        }
+        else{
+            randomEnemy = enemyRangedPrefap;
+            isRanged = true;
+        }
+
         Vector3 spawnPoint = tile.position + Vector3.up * 0.2f;
-        Enemy newEnemy = Instantiate(enemyPrefap, spawnPoint, Quaternion.identity);
+        Enemy newEnemy = Instantiate(randomEnemy, spawnPoint, Quaternion.identity);
+
+        newEnemy.SetChara(currentWave.moveSpeed, currentWave.damage, currentWave.skinColor);
+
+
         newEnemy.OnDeath += OnEnemyDeath; // 적이 죽을 경우 실행됨.
     }
 
     void MovePlayer(){
         if(player ==null)
             return;
-        player.transform.position= mapGenerator.PositionToTile(Vector3.zero).position + Vector3.up*2;
+        player.transform.position= mapGenerator.PositionToTile(Vector3.one * 0.9f).position + Vector3.up;
     }
 
     void NextWave(){
@@ -141,9 +161,11 @@ public class Spawner : MonoBehaviour
         currentWaveIndex++;
         currentWave = waves[currentWaveIndex];
 
+
         enemiesRemainingToSpawn = currentWave.enemyCount;
         enemiesRemainingToNextWave = currentWave.enemyCount;
         nextSpawnTime = Time.time + 3; // 다음 웨이브 시작 시 5초 뒤 스폰 시작. 나중에 보스전의 경우 10초를 두는 둥 변주 가능할 듯? 
+        nextCampCheckingTime = Time.time + 5f;
         Debug.Log($"~웨이브 {currentWaveIndex+1}~");
         OnNewWave(currentWaveIndex);
     }

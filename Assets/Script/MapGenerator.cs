@@ -155,7 +155,7 @@ public class MapGenerator : MonoBehaviour
 
         // Generate World Borders(아우 드러워!)
 
-        Vector3 worldBorderPosition = new Vector3(0, 0, (Mathf.Ceil(currentMap.mapSize.y * 0.5f) + 0.5f) * tileSize);
+        Vector3 worldBorderPosition = new Vector3(0, 0, ((currentMap.mapSize.y * 0.5f) + 0.5f) * tileSize);
         Transform worldBorderN = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
 
         worldBorderN.localScale = new Vector3(currentMap.mapSize.x * 2, 10, 1) * tileSize;
@@ -164,11 +164,11 @@ public class MapGenerator : MonoBehaviour
         Transform worldBorderS = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
         worldBorderS.localScale = new Vector3(currentMap.mapSize.x * 2, 10, 1) * tileSize;
 
-        worldBorderPosition = new Vector3((Mathf.Ceil(currentMap.mapSize.x * 0.5f) + 0.5f) * tileSize, 0, 0);
+        worldBorderPosition = new Vector3(((currentMap.mapSize.x * 0.5f) + 0.5f) * tileSize, 0, 0);
         Transform worldBorderE = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
         worldBorderE.localScale = new Vector3(1, 10, currentMap.mapSize.y * 2) * tileSize;
 
-        worldBorderPosition = new Vector3((Mathf.Ceil(-currentMap.mapSize.x * 0.5f) + 0.5f - 1) * tileSize, 0, 0);
+        worldBorderPosition = new Vector3(((-currentMap.mapSize.x * 0.5f) + 0.5f - 1) * tileSize, 0, 0);
         Transform worldBorderW = Instantiate(worldBorder, worldBorderPosition, Quaternion.identity, mapHolder);
         worldBorderW.localScale = new Vector3(1, 10, currentMap.mapSize.y * 2) * tileSize;
 
@@ -248,7 +248,7 @@ public class MapGenerator : MonoBehaviour
 
     public Transform PositionToTile(Vector3 position){
         position /= tileSize;
-        Coord coord = new Coord(Mathf.RoundToInt(position.x - 0.5f + currentMap.mapSize.x / 2), Mathf.RoundToInt(position.z - 0.5f + currentMap.mapSize.y / 2));
+        Coord coord = new Coord(Mathf.RoundToInt(position.x - 0.5f + currentMap.mapSize.x / 2f), Mathf.RoundToInt(position.z - 0.5f + currentMap.mapSize.y / 2f));
         return tileMap[ Mathf.Clamp(coord.x, 0, currentMap.mapSize.x-1), Mathf.Clamp(coord.y, 0, currentMap.mapSize.y -1 )].GetChild(0);
     }
 
@@ -259,7 +259,7 @@ public class MapGenerator : MonoBehaviour
     }
     public Vector3 CoordToVector3(int x, int y)
     {
-        Vector3 tilePosition = new Vector3(-currentMap.mapSize.x / 2 + 0.5f + x, 0, -currentMap.mapSize.y / 2 + 0.5f + y);
+        Vector3 tilePosition = new Vector3(-currentMap.mapSize.x / 2f + 0.5f + x, 0, -currentMap.mapSize.y / 2f + 0.5f + y);
 
         return tilePosition * tileSize;
     }
@@ -334,5 +334,5 @@ public class Map
         }
     }
 
-    public Coord MapCenter { get { return new Coord(mapSize.x / 2, mapSize.y / 2); } }
+    public Coord MapCenter { get { return new Coord((int)(mapSize.x / 2f), (int)(mapSize.y / 2f)); } }
 }

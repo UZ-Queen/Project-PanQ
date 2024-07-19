@@ -34,4 +34,16 @@ public class GunController : MonoBehaviour
             currentGun.OnTriggerRelease();
         }
     }
+
+
+    public void OverrideGunDamage(){
+        
+    }
+
+    public Vector3 GunPosition{
+        get{
+            return leftHand.position;
+        }
+    }
+
 }

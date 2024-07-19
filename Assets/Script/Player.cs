@@ -10,8 +10,10 @@ public class Player : LivingEntity
     GunController gunController;
     Camera mainCamera;
 
-    [SerializeField]
-    float moveSpeed = 10;
+    [SerializeField]    float moveSpeed = 10;
+    [SerializeField] Crosshair crossHair;
+
+    
     protected override void Start()
     {
         base.Start();
@@ -43,11 +45,13 @@ public class Player : LivingEntity
             SetCamera();
         }
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Plane plane = new Plane(Vector3.up, Vector3.up* gunController.GunPosition.y);
         float distance;
         if(plane.Raycast(ray, out distance )){
             Vector3 point = ray.GetPoint(distance);
+            crossHair.transform.position = point;
             playerController.LookAt(point);
+            crossHair.DetectTarget(ray);
             Debug.DrawLine(ray.origin, point, Color.red);
         }
 

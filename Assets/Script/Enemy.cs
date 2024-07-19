@@ -33,15 +33,17 @@ public class Enemy : LivingEntity
     protected float targetColliderRadius = 0;
     protected float thisColliderRadius = 0;
 
+    protected virtual void Awake(){
+        pathfinder = GetComponent<NavMeshAgent>();
+        targetEntity = GameObject.FindWithTag("Player")?.GetComponent<LivingEntity>();
+    
+
+    }
     protected override void Start()
     {
         base.Start();
-        pathfinder = GetComponent<NavMeshAgent>();
-
-
-        
         state = State.Idle;
-        targetEntity = GameObject.FindWithTag("Player")?.GetComponent<LivingEntity>();
+        
 
         if(targetEntity == null)
             return;
@@ -58,11 +60,19 @@ public class Enemy : LivingEntity
 
     }
 
+    public virtual void SetChara(float moveSpeed, int damage, Color skinColor){
+        pathfinder.speed = moveSpeed;
+        this.attackDamage = damage;
+        this.GetComponent<Renderer>().material.color = skinColor;
+    }
+
+
     protected virtual void Update(){
         if(!hasTarget)
             return;
-        float sqrDistanceToTarget = (target.position - transform.position).sqrMagnitude;
-
+        Vector3 targetDirection = target.position - transform.position;
+        float sqrDistanceToTarget = (targetDirection - targetDirection.normalized * (thisColliderRadius + targetColliderRadius)).sqrMagnitude;
+        
         if(nextAttackTime<=Time.time && sqrDistanceToTarget <= Mathf.Pow(attackRange,2) ){
             nextAttackTime = Time.time + secondsBetweenAttack;
             StartCoroutine(Attack());
@@ -112,7 +122,7 @@ public class Enemy : LivingEntity
     protected virtual void SetDestination(){
 
         Vector3 targetDirection = (target.position - transform.position).normalized;
-        Vector3 destination = target.position - targetDirection * (targetColliderRadius + thisColliderRadius + attackRange*0.25f) ;
+        Vector3 destination = target.position - targetDirection * (targetColliderRadius + thisColliderRadius + attackRange*0.1f) ;
 
         pathfinder.destination = destination;
     }

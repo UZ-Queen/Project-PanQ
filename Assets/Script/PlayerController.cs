@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void LookAt(Vector3 point){
-        Vector3 heightCorrectedPoint = point + new Vector3(0, transform.position.y, 0);
+        Vector3 heightCorrectedPoint = new Vector3(point.x, transform.position.y, point.z);
         transform.LookAt(heightCorrectedPoint);
     }
     void Start()
