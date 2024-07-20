@@ -7925,7 +7925,6 @@ GameObject:
   m_Component:
   - component: {fileID: 832202160}
   - component: {fileID: 832202162}
-  - component: {fileID: 832202161}
   m_Layer: 0
   m_Name: CrossHair Camera
   m_TagString: Untagged
@@ -7948,14 +7947,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 963194228}
   m_LocalEulerAnglesHint: {x: 65.294, y: 0, z: 0}
---- !u!81 &832202161
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832202159}
-  m_Enabled: 1
 --- !u!20 &832202162
 Camera:
   m_ObjectHideFlags: 0
@@ -12291,7 +12282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1330919235
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,7 +33,9 @@ public class Player : LivingEntity
         Vector3 dir = Vector3.Normalize(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")));
         playerController.Move(dir*moveSpeed);
 
-
+        if(Input.GetKeyDown(KeyCode.R)){
+            gunController.Reload();
+        }
         if(Input.GetMouseButton(0)){
             gunController.OnTriggerHold();
         }
@@ -52,6 +54,8 @@ public class Player : LivingEntity
             crossHair.transform.position = point;
             playerController.LookAt(point);
             crossHair.DetectTarget(ray);
+            gunController.LookCursor(point);
+
             Debug.DrawLine(ray.origin, point, Color.red);
         }
 

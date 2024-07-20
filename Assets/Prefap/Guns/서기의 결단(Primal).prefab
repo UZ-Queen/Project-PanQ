@@ -859,19 +859,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireMode: 2
   damage: 12
   stablity: 0.858
   msBetweenShot: 70
+  infinityAmmo: 0
   pellets: 9
   spreadAngles: 14.6
-  burstCount: 3
-  msBetweenBurstShot: 39
   projVelocity: 25.1
-  lifeTime: 20.19
+  lifeTime: 14.7
+  magSize: 10
+  currentAmmo: 7
+  reloadTime: 0.43
+  isReloading: 0
+  fireMode: 2
+  burstCount: 4
+  msBetweenBurstShot: 39
   isHoming: 0
   persuitAccuracy: 700.5
   targetTag: Enemy
+  recoilCoef: {x: 0.1, y: 0.3}
+  recoilAngleCoef: {x: 3, y: 6}
+  recoilRecoverySpeed: 7.36
+  positionClampValue: 0.32
+  angleClampValue: 20
+  recoilAngle: 0
   attackFilter:
     serializedVersion: 2
     m_Bits: 640
@@ -915,7 +926,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.062
+  m_Volume: 0.253
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Project-PanQ.sln"
+    "dotnet.defaultSolution": "Project-PanQ.sln",
+    "dotnet.preferCSharpExtension": true
 }

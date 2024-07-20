@@ -23,7 +23,11 @@ public class GunController : MonoBehaviour
         }
     currentGun = Instantiate(gun, leftHand.position, Quaternion.identity, leftHand );
     }
-
+    public void Reload(){
+        if(currentGun == null)
+            return;
+        currentGun?.Reload();
+    }
     public void OnTriggerHold(){
         if(currentGun != null){
             currentGun.OnTriggerHold();
@@ -34,7 +38,11 @@ public class GunController : MonoBehaviour
             currentGun.OnTriggerRelease();
         }
     }
-
+    public void LookCursor(Vector3 point){
+        if(currentGun != null){
+            currentGun.LookCursor(point);
+        }
+    }
 
     public void OverrideGunDamage(){
         
