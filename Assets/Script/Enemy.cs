@@ -63,7 +63,7 @@ public class Enemy : LivingEntity
     public virtual void SetChara(float moveSpeed, int damage, Color skinColor){
         pathfinder.speed = moveSpeed;
         this.attackDamage = damage;
-        this.GetComponent<Renderer>().material.color = skinColor;
+        this.GetComponent<Renderer>().sharedMaterial.color = skinColor;
     }
 
 

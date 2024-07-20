@@ -17,7 +17,6 @@ public class Gun : MonoBehaviour
     [SerializeField][Range(0.001f, 1f)] float stablity = 0.9f;
     [SerializeField][Range(1f, 2000f)] float msBetweenShot = 100f;
 
-    [SerializeField] bool infinityAmmo = false; 
     // [SerializeField] bool infinityAmmo = false; 
 
     [SerializeField][Range(1, 10000)] int pellets = 1;
@@ -26,6 +25,7 @@ public class Gun : MonoBehaviour
     [SerializeField] float lifeTime = 2f;
 
     [Header("재장전 관련")]
+    [SerializeField] bool infinityAmmo = false; 
     [SerializeField][Range(0,200)] int magSize = 7;
     [SerializeField] int currentAmmo = 7;
     [SerializeField]float reloadTime = 1f;

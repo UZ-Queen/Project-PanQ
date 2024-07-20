@@ -111,7 +111,7 @@ public class Spawner : MonoBehaviour
             tile = mapGenerator.GetRandomOpenTile();
 
         Material tileMat = tile.GetComponent<Renderer>().material;
-        Color originalColor = tileMat.color;
+        Color originalColor = Color.white;//tileMat.color;
         Color flashColor = Color.red;
 
         float spawnDelay = 1f;

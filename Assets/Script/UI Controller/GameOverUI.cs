@@ -9,6 +9,9 @@ public class GameOverUI : MonoBehaviour
     public Image fadeImage;
     public GameObject gameOverUI;
 
+    public RectTransform waveBanner;
+    
+
     //여기서 보관할 게 아닌데..
     bool isGameOver = false;
     // Start is called before the first frame update
