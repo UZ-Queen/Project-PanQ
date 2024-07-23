@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
+// [RequireComponent(typeof(AudioSource))]
 public class LivingEntity : MonoBehaviour, IDamageable
 {
     public event Action OnDeath;
@@ -22,7 +22,6 @@ public class LivingEntity : MonoBehaviour, IDamageable
         }}
 
 
-    AudioSource audioSauce;
     [SerializeField]
     public AudioClip onHitSound;
 
@@ -43,8 +42,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if(isDead) 
             return;
         if(onHitSound != null)
-            //audioSauce.PlayOneShot(onHitSound);
-            AudioSource.PlayClipAtPoint(onHitSound, transform.position); //이런건 어떨까?
+            AudioManager.instance.PlaySFX(onHitSound, transform.position); //이런건 어떨까?
         if(damage > 0 )
             ShowDamageText(damage);
 
@@ -65,7 +63,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     }
 
     [ContextMenu("끄앙!")]
-    protected void Die(){
+    protected virtual void Die(){
         isDead = true;
         health = 0;
 
@@ -91,7 +89,6 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
-        audioSauce = GetComponent<AudioSource>();
         health = initialHealth;
         MaxHealth = initialHealth;
     }

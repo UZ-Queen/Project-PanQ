@@ -820,7 +820,6 @@ GameObject:
   - component: {fileID: 2370989327936009357}
   - component: {fileID: 7445870004944325682}
   - component: {fileID: 105460859432644205}
-  - component: {fileID: 3333175719990399808}
   m_Layer: 0
   m_Name: "\uB9C8\uC2A4\uD2F0\uD504"
   m_TagString: Untagged
@@ -859,19 +858,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireMode: 0
-  damage: 89
+  damage: 110
   stablity: 0.858
-  msBetweenShot: 516
-  pellets: 11
-  spreadAngles: 18.4
-  burstCount: 3
-  msBetweenBurstShot: 39
-  projVelocity: 46
+  msBetweenShot: 613
+  pellets: 55
+  spreadAngles: 23
+  projVelocity: 21.4
   lifeTime: 20.19
+  infinityAmmo: 0
+  magSize: 8
+  currentAmmo: 7
+  reloadTime: 1
+  isReloading: 0
+  fireMode: 3
+  burstCount: 2
+  msBetweenBurstShot: 106.3
   isHoming: 1
   persuitAccuracy: 700.5
   targetTag: Enemy
+  recoilCoef: {x: 0.1, y: 0.3}
+  recoilAngleCoef: {x: 3, y: 6}
+  recoilRecoverySpeed: 2.78
+  positionClampValue: 0.5
+  angleClampValue: 20
+  recoilAngle: 0
   attackFilter:
     serializedVersion: 2
     m_Bits: 640
@@ -880,6 +890,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3646972139615963898, guid: e062bed534e030d47a859ee68881fe94, type: 3}
   shellPrefap: {fileID: 5915361943725762491, guid: 55850974795fe7a41a8bfbfa2694b546, type: 3}
   shotSound: {fileID: 8300000, guid: 64ec2b5ece2a7e74ea21952d9ed9b87b, type: 3}
+  reloadSound: {fileID: 8300000, guid: 0ba9679357fa8d44fb88d7d1a8124bbe, type: 3}
   hasReleasedTriggerAfterShot: 1
 --- !u!114 &105460859432644205
 MonoBehaviour:
@@ -903,99 +914,3 @@ MonoBehaviour:
   - {fileID: 2913485757954357126}
   - {fileID: 1162447143560492349}
   flashTime: 0.12
---- !u!82 &3333175719990399808
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8864532957025949342}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.292
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4

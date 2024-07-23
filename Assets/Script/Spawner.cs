@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 
 public class Spawner : MonoBehaviour
 {
-
+    [SerializeField] bool devMode = false;
     [SerializeField]Enemy enemyPrefap;
     [SerializeField]EnemyRanged enemyRangedPrefap;
 
@@ -54,6 +54,7 @@ public class Spawner : MonoBehaviour
     
     [SerializeField]    bool isDisabled = false; // 플레이어가 죽으면 생성 중단.
 
+    //Will send current wave index.
     public event System.Action<int> OnNewWave = delegate{};
 
     void Awake(){
@@ -77,9 +78,22 @@ public class Spawner : MonoBehaviour
         NextWave();
     }
 
+    void DevMode(){
+        if(!devMode)
+            return;
+        if(Input.GetKeyDown(KeyCode.RightArrow)){
+            StopCoroutine(SpawnEnemy());
+            foreach(Enemy enemy in FindObjectsOfType<Enemy>()){
+                Destroy(enemy.gameObject);
+            }
+            NextWave();
+        }
+    }
 
     void Update()
     {
+        if(devMode)
+            DevMode();
         if(isDisabled)
             return;
         if((enemiesRemainingToSpawn > 0 || currentWave.isEndless) && Time.time > nextSpawnTime){
@@ -143,6 +157,7 @@ public class Spawner : MonoBehaviour
 
 
         newEnemy.OnDeath += OnEnemyDeath; // 적이 죽을 경우 실행됨.
+        
     }
 
     void MovePlayer(){

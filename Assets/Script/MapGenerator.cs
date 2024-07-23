@@ -1,11 +1,6 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Security.Cryptography;
-
-//using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,7 +12,7 @@ public class MapGenerator : MonoBehaviour
 
     public Map[] maps;
     Map currentMap;
-    [SerializeField] int mapIndex = 0;
+    [SerializeField][Range(0,10)] int mapIndex = 0;
     [SerializeField] Transform tilePrefap;
     [SerializeField] Transform obstaclePrefap;
 
@@ -53,8 +48,9 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
+        mapIndex = Mathf.Clamp(mapIndex, 0, maps.Length - 1);
         currentMap = maps[mapIndex];
-
+        System.Random prng = new System.Random(currentMap.seed);
         // Set navMesh walkable Floor
         navMeshPlane.localScale = new Vector3(maxMapSize.x, 0, maxMapSize.y) * tileSize;
 
@@ -135,9 +131,28 @@ public class MapGenerator : MonoBehaviour
             if (IsMapFullyAccessible(obstacleFlags, obstacleCount))
             {
                 Transform newObstacle = Instantiate(obstaclePrefap, CoordToVector3(coord), Quaternion.identity, mapHolder);
-                newObstacle.localScale *= tilePercent * tileSize;
-                newObstacle.Translate(Vector3.up * transform.localScale.y * 0.5f);
+                Transform obstalceMesh = newObstacle.GetChild(0);
+                Renderer obstacleRenderer = obstalceMesh.GetComponent<Renderer>();
 
+                //Changing Obstalce Color
+                Material obstacleMat = new Material(obstacleRenderer.sharedMaterial);
+                obstacleMat.color = Color.Lerp(currentMap.foreColor, currentMap.backColor, (float)coord.y / currentMap.mapSize.y);
+                obstacleRenderer.material = obstacleMat;
+
+                //Sizeof
+                obstalceMesh.localScale *= tilePercent * tileSize;
+
+                Vector3 newSize = obstalceMesh.localScale;
+                //높이
+                newSize.y = Mathf.Lerp(currentMap.minObstalceHeight, currentMap.maxObstacleHeight, (float)prng.NextDouble());
+                // newSize.y = Random.Range(currentMap.minObstalceHeight, currentMap.maxObstacleHeight);
+                // newSize.y = Mathf.Lerp(currentMap.minObstalceHeight, currentMap.maxObstacleHeight, (float)coord.y / currentMap.mapSize.y);
+                obstalceMesh.localScale = newSize;
+                newObstacle.Translate(Vector3.up * obstalceMesh.localScale.y * 0.5f);
+                //이 박스콜라이더는 장애물 그 자체. 총알도 다 막음.
+                newObstacle.GetComponent<BoxCollider>().size = newSize; //+ new Vector3(0, newSize.y/2f, 0) ;
+                // 이 박스콜라이더는 배리어로, 플레이어의 움직임만 막을 것임.
+                newObstacle.GetComponentsInChildren<BoxCollider>()[1].size = newSize + Vector3.up * 20;
                 allOpenTileCoords.Remove(coord);
             }
             else
@@ -310,7 +325,7 @@ public struct Coord
 }
 
 
-[Serializable]
+[System.Serializable]
 public class Map
 {
 

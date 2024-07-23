@@ -59,8 +59,14 @@ public class Player : LivingEntity
             Debug.DrawLine(ray.origin, point, Color.red);
         }
 
+
     }
 
+    protected override void Die()
+    {
+        AudioManager.instance.PlaySFX("Player Death Fun", transform.position);
+        base.Die();
+    }
     void SetCamera(){
         mainCamera = Camera.main;
     }

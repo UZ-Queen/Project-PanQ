@@ -79,7 +79,16 @@ public class Enemy : LivingEntity
         }
     }
 
+    protected override void Die()
+    {
+        AudioManager.instance.PlaySFX("Enemy Death Apex", transform.position);
+        base.Die();
+    }
+
     protected virtual IEnumerator Attack(){
+        AudioManager.instance.PlaySFX("Enemy Attack Sound", transform.position);
+
+
         Vector3 originalPosition = transform.position;
         Vector3 targetPosition = target.position;
 

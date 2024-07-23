@@ -18,8 +18,8 @@ TagManager:
   - Obstacle
   - Floor
   - Shell
-  - 
-  - 
+  - Projectile
+  - "Barrier(\uD50C\uB808\uC774\uC5B4\uB9CC \uBABB \uC9C0\uB098\uAC10)"
   - 
   - 
   - 

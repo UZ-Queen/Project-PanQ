@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 
-[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(MuzzleFlash))]
 public class Gun : MonoBehaviour
 {
@@ -68,7 +67,7 @@ public class Gun : MonoBehaviour
     [SerializeField] Projectile projectilePrefab;
     [SerializeField] Shell shellPrefap;
     [SerializeField] AudioClip shotSound;
-    AudioSource audioSauce;
+    [SerializeField] AudioClip reloadSound;
     MuzzleFlash muzzleFlash;
     float randomizeVelocityCoef = 0.3f; // 발사체 속도가 이 수치만큼 무작위로 바뀜. ex) 0.3이면 속도가 0.7~1.3배 곱해짐. 몰루의 안정치 비슷한 느낌?
 
@@ -80,7 +79,6 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        audioSauce = GetComponent<AudioSource>();
         muzzleFlash = GetComponent<MuzzleFlash>();
 
         currentAmmo = magSize;
@@ -102,6 +100,7 @@ public class Gun : MonoBehaviour
         if(currentAmmo == magSize)
             return;
         
+        AudioManager.instance.PlaySFX(reloadSound, transform.position);
         StartCoroutine(ReloadAnimation());
     }
 
@@ -168,8 +167,7 @@ public class Gun : MonoBehaviour
             if(!infinityAmmo)
                 currentAmmo--;
 
-            if (shotSound != null)
-                audioSauce.PlayOneShot(shotSound);
+            AudioManager.instance.PlaySFX(shotSound, transform.position);
 
             muzzleFlash.Activate();
 

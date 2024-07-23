@@ -859,19 +859,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireMode: 3
   damage: 1080
   stablity: 0.858
   msBetweenShot: 128
   pellets: 21
   spreadAngles: 22.1
-  burstCount: 4
-  msBetweenBurstShot: 39
   projVelocity: 20.5
   lifeTime: 20.19
+  infinityAmmo: 0
+  magSize: 7
+  currentAmmo: 7
+  reloadTime: 1
+  isReloading: 0
+  fireMode: 3
+  burstCount: 4
+  msBetweenBurstShot: 39
   isHoming: 1
   persuitAccuracy: 700.5
   targetTag: Enemy
+  recoilCoef: {x: 0.1, y: 0.3}
+  recoilAngleCoef: {x: 3, y: 6}
+  recoilRecoverySpeed: 1.48
+  positionClampValue: 0.5
+  angleClampValue: 20
+  recoilAngle: 0
   attackFilter:
     serializedVersion: 2
     m_Bits: 640
@@ -880,6 +891,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3646972139615963898, guid: e062bed534e030d47a859ee68881fe94, type: 3}
   shellPrefap: {fileID: 5915361943725762491, guid: 55850974795fe7a41a8bfbfa2694b546, type: 3}
   shotSound: {fileID: 8300000, guid: e8faccd0b561f18408029a529a16d85e, type: 3}
+  reloadSound: {fileID: 0}
   hasReleasedTriggerAfterShot: 1
 --- !u!114 &105460859432644205
 MonoBehaviour:
