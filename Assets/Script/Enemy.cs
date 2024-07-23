@@ -6,6 +6,10 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : LivingEntity
 {
+
+    public static event System.Action OnDeathStatic = delegate{};
+
+
     [SerializeField]
     protected int attackDamage = 2;
     [SerializeField]
@@ -33,6 +37,12 @@ public class Enemy : LivingEntity
     protected float targetColliderRadius = 0;
     protected float thisColliderRadius = 0;
 
+
+    public virtual void SetChara(float moveSpeed, int damage, Color skinColor){
+        pathfinder.speed = moveSpeed;
+        this.attackDamage = damage;
+        this.GetComponent<Renderer>().sharedMaterial.color = skinColor;
+    }
     protected virtual void Awake(){
         pathfinder = GetComponent<NavMeshAgent>();
         targetEntity = GameObject.FindWithTag("Player")?.GetComponent<LivingEntity>();
@@ -60,13 +70,6 @@ public class Enemy : LivingEntity
 
     }
 
-    public virtual void SetChara(float moveSpeed, int damage, Color skinColor){
-        pathfinder.speed = moveSpeed;
-        this.attackDamage = damage;
-        this.GetComponent<Renderer>().sharedMaterial.color = skinColor;
-    }
-
-
     protected virtual void Update(){
         if(!hasTarget)
             return;
@@ -79,8 +82,17 @@ public class Enemy : LivingEntity
         }
     }
 
+
+    // public override void TakeHit(int damage, Vector3 hitPoint, Vector3 hitDirection)
+    // {
+    //     // if(damage >= health)
+    //     base.TakeHit(damage, hitPoint, hitDirection);
+    // }
     protected override void Die()
     {
+        // if(!isDead)
+        //     return;
+        OnDeathStatic();
         AudioManager.instance.PlaySFX("Enemy Death Apex", transform.position);
         base.Die();
     }

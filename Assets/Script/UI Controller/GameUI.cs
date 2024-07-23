@@ -6,20 +6,24 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Unity.VisualScripting;
 
-public class GameOverUI : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
+    [Header("점수 표시")]
+    [SerializeField] private TextMeshProUGUI scoreText;
+
+    [Header("게임 오버")]
     public Image fadeImage;
     public GameObject gameOverUI;
 
 
     [Header("스포너 배너 관련")]
-    Spawner spawner;
     [SerializeField] RectTransform waveBanner;
     [SerializeField] TextMeshProUGUI waveText;
     [SerializeField] TextMeshProUGUI enemiesCountText;
     [SerializeField] float bannerPopupDuration = 0.5f;
     [SerializeField] float bannerDuration = 1.5f;
     Coroutine lastCoroutine;
+    Spawner spawner;
 
     //여기서 보관할 게 아닌데..
     bool isGameOver = false;
@@ -31,6 +35,14 @@ public class GameOverUI : MonoBehaviour
     {
         spawner = FindObjectOfType<Spawner>();
         spawner.OnNewWave += OnNewWave;
+    }
+
+    void Update(){
+        scoreText.text = ScoreManager.score.ToString("D6");
+
+        if(Input.GetKeyDown(KeyCode.R) && isGameOver){
+            StartGame();
+        }
     }
 
     void OnNewWave(int waveIndex){
@@ -59,15 +71,6 @@ public class GameOverUI : MonoBehaviour
             waveBanner.anchoredPosition = Vector2.up * Mathf.Lerp(-250, 0, percent);
             yield return null;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        // GameManager 따위의 클래스를 만들고, 거기에서 상태를 관리해야 되나..
-        if(Input.GetKeyDown(KeyCode.R) && isGameOver){
-            StartGame();
-        }
-
     }
 
     void OnGameOver(){
