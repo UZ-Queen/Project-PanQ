@@ -22,8 +22,16 @@ public class GameUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI enemiesCountText;
     [SerializeField] float bannerPopupDuration = 0.5f;
     [SerializeField] float bannerDuration = 1.5f;
-    Coroutine lastCoroutine;
     Spawner spawner;
+
+    [Header("플레이어 체력 관련")]
+    [SerializeField] private RectTransform hpSprite;
+    
+
+    [SerializeField] private Player player;
+    Coroutine lastCoroutine;
+
+
 
     //여기서 보관할 게 아닌데..
     bool isGameOver = false;
@@ -35,14 +43,27 @@ public class GameUI : MonoBehaviour
     {
         spawner = FindObjectOfType<Spawner>();
         spawner.OnNewWave += OnNewWave;
+
+        player = FindObjectOfType<Player>();
+        
+
     }
 
     void Update(){
         scoreText.text = ScoreManager.score.ToString("D6");
 
+
+
         if(Input.GetKeyDown(KeyCode.R) && isGameOver){
             StartGame();
         }
+        float hp = 0f;
+        if(player != null){
+            hp = (float)player.Health / player.initialHealth;
+        }
+        hpSprite.localScale = new Vector3(hp, 1,1);
+
+
     }
 
     void OnNewWave(int waveIndex){

@@ -12,7 +12,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     [SerializeField] protected ParticleSystem deathEffect;
     [SerializeField]
-    protected int health;
+    public int Health{get;private set;}
     public int initialHealth = 10;
     public  int MaxHealth{get;protected set;}
     protected bool isDead = false;
@@ -29,7 +29,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     {
         if(isDead) 
             return;
-        if( deathEffect && health <= damage){
+        if( deathEffect && Health <= damage){
             ParticleSystem newDeathEffect = Instantiate(deathEffect, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection));
             Destroy(newDeathEffect.gameObject, newDeathEffect.main.startLifetime.constant);
             // Destroy(newDeathEffect, newDeathEffect.startLifetime);
@@ -46,8 +46,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if(damage > 0 )
             ShowDamageText(damage);
 
-        health -= damage;
-        if(health < 0){
+        Health -= damage;
+        if(Health < 0){
             Die();
         }
     }
@@ -59,13 +59,13 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public void Heal(int amount){
         if(isDead)
             return;
-        health+=amount;
+        Health+=amount;
     }
 
     [ContextMenu("끄앙!")]
     protected virtual void Die(){
         isDead = true;
-        health = 0;
+        Health = 0;
 
 
         if(OnDeath != null){
@@ -89,7 +89,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
-        health = initialHealth;
+        Health = initialHealth;
         MaxHealth = initialHealth;
     }
 
