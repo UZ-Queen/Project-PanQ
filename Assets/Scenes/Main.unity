@@ -3373,10 +3373,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 23174824}
-  - {fileID: 318240364}
   - {fileID: 1361173338}
   - {fileID: 309383444}
   - {fileID: 1290376024}
+  - {fileID: 318240364}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8872,8 +8872,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1093144457}
   - {fileID: 2047507953}
+  - {fileID: 1093144457}
   - {fileID: 2078310458}
   m_Father: {fileID: 481756757}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13430,7 +13430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageText: {fileID: 4269070955774390061, guid: 484bcfec267853f4cb9685f39ee3d2e6, type: 3}
   deathEffect: {fileID: 0}
-  initialHealth: 1226
+  initialHealth: 256
   onHitSound: {fileID: 8300000, guid: 16df9dcf6f6a5e94782d225456f7bab1, type: 3}
   moveSpeed: 10
   crossHair: {fileID: 726954246}
@@ -13446,7 +13446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5375c90f8a7b7ba4285e304dd77c9bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialGun: {fileID: 7445870004944325682, guid: f2db720318f46484abf9bdc3c2113cec, type: 3}
+  initialGun: {fileID: 7445870004944325682, guid: 5d6ea0f2a7928114bb577c8bf6974198, type: 3}
   leftHand: {fileID: 305959169}
   rightHand: {fileID: 0}
 --- !u!1 &1823981362

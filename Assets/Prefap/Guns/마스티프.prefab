@@ -861,7 +861,7 @@ MonoBehaviour:
   damage: 110
   stablity: 0.858
   msBetweenShot: 613
-  pellets: 55
+  pellets: 143
   spreadAngles: 23
   projVelocity: 21.4
   lifeTime: 20.19

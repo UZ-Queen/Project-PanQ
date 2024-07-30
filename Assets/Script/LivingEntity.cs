@@ -12,7 +12,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     [SerializeField] protected ParticleSystem deathEffect;
     [SerializeField]
-    public int Health{get;private set;}
+    public int Health{get;protected set;}
     public int initialHealth = 10;
     public  int MaxHealth{get;protected set;}
     protected bool isDead = false;

@@ -50,7 +50,9 @@ public class GameUI : MonoBehaviour
     }
 
     void Update(){
-        scoreText.text = ScoreManager.score.ToString("D6");
+        if(!player.IsDead){
+            scoreText.text = ScoreManager.score.ToString("D6");
+        }
 
 
 
@@ -95,9 +97,10 @@ public class GameUI : MonoBehaviour
     }
 
     void OnGameOver(){
+        Cursor.visible = true;
         gameOverUI?.SetActive(true);
         isGameOver = true;
-        StartCoroutine(FadeOut(Color.clear, Color.black, 1f));
+        StartCoroutine(FadeOut(Color.clear, new Color(0,0,0, 0.95f), 1f));
     }
 
 
