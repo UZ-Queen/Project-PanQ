@@ -47,9 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39fc3835fe322fb468a652116e6e5b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 0.2
-  musicVolume: 1
-  sfxVolume: 1
 --- !u!114 &7487626773956464968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +98,9 @@ MonoBehaviour:
   - groupName: Enemy Attack Sound
     clips:
     - {fileID: 8300000, guid: ef17a1d46c9995447b749c98e371f662, type: 3}
+  - groupName: Medkit Sound
+    clips:
+    - {fileID: 8300000, guid: 4dae479d987a40e41b8ea500a83c4778, type: 3}
 --- !u!1 &6892579450672446864
 GameObject:
   m_ObjectHideFlags: 0

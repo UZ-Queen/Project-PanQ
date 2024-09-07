@@ -14,6 +14,10 @@ public class Player : LivingEntity
     [SerializeField] Crosshair crossHair;
 
     
+    void OnEnable(){
+        
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -25,11 +29,17 @@ public class Player : LivingEntity
         playerController = GetComponent<PlayerController>();
         gunController = GetComponent<GunController>();
         SetCamera();
+
+
+        GameManager.instance.PlayerRespawned(transform);
+        
         Debug.Log("로드 성공!");
     }
     void Update()
     {
         
+        if(GameManager.instance.isGamePaused)
+            return;    
         Vector3 dir = Vector3.Normalize(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")));
         playerController.Move(dir*moveSpeed);
 

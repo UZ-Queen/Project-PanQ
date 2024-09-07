@@ -59,7 +59,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public void Heal(int amount){
         if(isDead)
             return;
-        Health+=amount;
+        Health = Mathf.Clamp(Health + amount, 1, initialHealth);
+        
     }
 
     [ContextMenu("끄앙!")]

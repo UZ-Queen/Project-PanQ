@@ -496,7 +496,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -746,7 +746,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -859,29 +859,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0006a560bad542bc5634967ed3038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  stablity: 0.858
-  msBetweenShot: 119
+  damage: 100
+  stablity: 0.8
+  msBetweenShot: 150
   pellets: 1
   spreadAngles: 4.7
   projVelocity: 25.1
-  lifeTime: 14.7
+  lifeTime: 5
   infinityAmmo: 0
-  magSize: 24
+  magSize: 7
   currentAmmo: 20
-  reloadTime: 0.43
+  reloadTime: 0.33
   isReloading: 0
-  fireMode: 2
+  fireMode: 0
   burstCount: 4
-  msBetweenBurstShot: 39
+  msBetweenBurstShot: 30
   isHoming: 0
   persuitAccuracy: 700.5
   targetTag: Enemy
   recoilCoef: {x: 0.1, y: 0.3}
   recoilAngleCoef: {x: 3, y: 6}
-  recoilRecoverySpeed: 7.36
+  recoilRecoverySpeed: 12.35
   positionClampValue: 0.32
-  angleClampValue: 20
+  angleClampValue: 13.5
   recoilAngle: 0
   attackFilter:
     serializedVersion: 2
@@ -891,7 +891,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3646972139615963898, guid: e062bed534e030d47a859ee68881fe94, type: 3}
   shellPrefap: {fileID: 5915361943725762491, guid: 55850974795fe7a41a8bfbfa2694b546, type: 3}
   shotSound: {fileID: 8300000, guid: fb08f33348ab6974684cea9632f2e7a7, type: 3}
-  reloadSound: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 6478fb0455f1fb041b399b0c10fa4eab, type: 3}
   hasReleasedTriggerAfterShot: 1
 --- !u!114 &105460859432644205
 MonoBehaviour:

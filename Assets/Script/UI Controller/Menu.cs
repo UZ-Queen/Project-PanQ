@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
+
+    public bool isGamePaused = false;
+
     [SerializeField] private GameObject mainMenuHolder;
     [SerializeField] private GameObject optionHolder;
 
@@ -35,7 +38,7 @@ public class Menu : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Level");
     }
 
     public void Exit()
@@ -45,14 +48,40 @@ public class Menu : MonoBehaviour
 
     public void MainMenu()
     {
-        mainMenuHolder.SetActive(true);
+        mainMenuHolder?.SetActive(true);
         optionHolder.SetActive(false);
+
+        GameManager.instance.isGamePaused = false;
+        Time.timeScale = 1f;
     }
     public void Option()
     {
-        mainMenuHolder.SetActive(false);
+        if(GameManager.instance.isGameOver)
+            return;
+
+        mainMenuHolder?.SetActive(false);
         optionHolder.SetActive(true);
+        GameManager.instance.isGamePaused = true;
+        Time.timeScale = 0f;
     }
+
+    void Update(){
+        // Debug.Log("현재 타임스케일: " + Time.timeScale);
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            ToggleOption();
+        }
+    }
+
+    public void ToggleOption(){
+        if(optionHolder.activeSelf){
+            MainMenu();
+        }
+        else{
+            Option();
+        }
+    }
+
 
     public void SetMasterVolume(float value)
     {

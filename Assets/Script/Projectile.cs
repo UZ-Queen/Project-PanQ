@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -96,7 +98,37 @@ public class Projectile : MonoBehaviour
 
     private void SetTarget()
     {
-        target = GameObject.FindGameObjectWithTag(targetTag)?.transform;
+        // target = GameObject.FindGameObjectWithTag(targetTag)?.transform;
+        // var colliders = Physics.OverlapSphere(transform.position, 1000f, layerMask);
+        // Collider closestCollider= null;
+        // float minDistance = float.MaxValue;
+        // foreach(var c in colliders){
+        //     if(c.tag != targetTag)
+        //         continue;
+        //     if(closestCollider == null || Vector3.SqrMagnitude(c.transform.position - transform.position) < minDistance){
+        //         closestCollider = c;
+        //         minDistance = Vector3.SqrMagnitude(c.transform.position - transform.position);
+        //         continue;
+        //     }
+        // }
+        // target = closestCollider?.transform;
+
+        // RaycastHit hit;
+        // if(Physics.SphereCast(transform.position + transform.forward * 1f, 5f, transform.forward, out hit, 250f, layerMask)){
+        //     if(hit.transform == null){
+        //         Debug.Log("너가 문제니?");
+        //         return;
+        //     }
+        //     Debug.Log("적을 찾았어요! " + hit.collider.gameObject.name);
+        //     target = hit.transform;
+        //     if(target.tag != targetTag)
+        //         target = null;
+        // }
+
+        
+        // if(target == null)
+            target = GameObject.FindGameObjectWithTag(targetTag)?.transform;
+
         if (target == null)
         {
             Debug.Log($"{tag} 목표를 찾지 못했습니다.");
@@ -132,7 +164,9 @@ public class Projectile : MonoBehaviour
 
     void CheckCollisions(float moveDistance)
     {
-        if (hasAppliedDamage)
+
+        try{
+            if (hasAppliedDamage)
             return;
 
         Ray ray = new Ray(transform.position, transform.forward);
@@ -144,6 +178,13 @@ public class Projectile : MonoBehaviour
             OnHitObject(hit);
             hasAppliedDamage = true;
         }
+        }
+        catch(Exception e){
+            Debug.LogError("끄앙! " + e.Message + e.StackTrace);
+            Destroy(gameObject);
+        }
+
+
 
     }
 

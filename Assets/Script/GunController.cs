@@ -6,7 +6,12 @@ using UnityEngine;
 //총을 착용할 수 있는 객체에게 총을 장착.
 public class GunController : MonoBehaviour
 {
+
+    [SerializeField] private Gun[] guns;
+
+
     Gun currentGun;
+    int currentGunIndex = 0;
     public Gun initialGun;
 
     public Transform leftHand;
@@ -17,7 +22,8 @@ public class GunController : MonoBehaviour
         EquipGun(initialGun);
     }
     
-    void EquipGun(Gun gun){
+    //흑마법 ㅠㅠ
+    public void EquipGun(Gun gun){
         if(currentGun != null){
             Destroy(currentGun.gameObject);
         }

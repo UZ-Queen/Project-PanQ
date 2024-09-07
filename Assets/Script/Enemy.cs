@@ -9,6 +9,9 @@ public class Enemy : LivingEntity
 
     public static event System.Action OnDeathStatic = delegate{};
 
+    [SerializeField] private Medkit medkitPrefap;
+    public bool doDropMedkit{get;private set;} = true;
+
 
     [SerializeField]
     protected int attackDamage = 2;
@@ -38,9 +41,20 @@ public class Enemy : LivingEntity
     protected float thisColliderRadius = 0;
 
 
-    public virtual void SetChara(float moveSpeed, int damage, Color skinColor){
+    public virtual void SetChara(float healthMultiplier, int health, float moveSpeed, int damage, float attackRange, bool doDropMedkit, Color skinColor){
+        
+        if(health != 0){
+            initialHealth = health;
+            Health = health;
+        }
+        else{
+            initialHealth = (int)(healthMultiplier * initialHealth);
+            Health = initialHealth;
+        }
         pathfinder.speed = moveSpeed;
         this.attackDamage = damage;
+        this.attackRange = attackRange;
+        this.doDropMedkit = doDropMedkit;
         this.GetComponent<Renderer>().sharedMaterial.color = skinColor;
     }
     protected virtual void Awake(){
@@ -94,6 +108,13 @@ public class Enemy : LivingEntity
         //     return;
         OnDeathStatic();
         AudioManager.instance.PlaySFX("Enemy Death Apex", transform.position);
+        
+        if( doDropMedkit &&Random.Range(0,1f) > 0.95f && medkitPrefap != null){
+            
+            Medkit newMedkit = Instantiate(medkitPrefap, transform.position, Quaternion.identity);
+            // FindObjectOfType<Spawner>().OnNewWave += newMedkit.Expire;
+        }
+
         base.Die();
     }
 

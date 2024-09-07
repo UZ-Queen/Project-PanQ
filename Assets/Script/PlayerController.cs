@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     Rigidbody rb;
 
-
+    [SerializeField] private float moveSpeedMultiplier = 7f;
+[SerializeField] private float groundDrag = 5f;
     public void Move(Vector3 velocity){
         this.velocity = velocity;
     }
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.drag = groundDrag;
     }
 
     
@@ -29,6 +31,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
-        rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+        // rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
+
+        rb.AddForce(velocity * moveSpeedMultiplier, ForceMode.Force);
+    }
+
+
+    void clampVelocity(){
+
     }
 }

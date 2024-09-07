@@ -194,7 +194,7 @@ public class Gun : MonoBehaviour
     Projectile SetProjectile()
     {
         Quaternion randomRotation = muzzle.rotation;
-        randomRotation *= Quaternion.Euler(Random.Range(-spreadAngles / 2, spreadAngles / 2), Random.Range(-spreadAngles / 2, spreadAngles / 2), 0);
+        randomRotation *= Quaternion.Euler(0, Random.Range(-spreadAngles / 2, spreadAngles / 2), 0);
         Projectile newProjectile = Instantiate(projectilePrefab, muzzle.position, randomRotation);
 
         newProjectile.SetVelocity(projVelocity * Random.Range(1 - randomizeVelocityCoef, 1 + randomizeVelocityCoef));
